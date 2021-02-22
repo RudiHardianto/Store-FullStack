@@ -13,13 +13,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Page
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/categories', 'CategoryController@index')->name('categories');
+Route::get('/details/{id}', 'DetailController@index')->name('detail');
+Route::get('/cart', 'CartController@index')->name('cart');
+Route::get('/success', 'SuccessController@index')->name('success');
 
-Route::get('/debug-sentry', function () {
-    throw new Exception('My first Sentry error!');
-});
+// Register, Login
+Route::get('/register/success', 'Auth\RegisterController@success')->name('register-success');
+
+// Dashboard
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+// Product
+Route::get('/dashboard/products', 'DashboardProductController@index')->name('dashboard-product');
+Route::get('/dashboard/products/create', 'DashboardProductController@create')->name('dashboard-product-create');
+Route::get('/dashboard/products/{id}', 'DashboardProductController@details')->name('dashboard-product-details');
+
+// Transaction
+Route::get('/dashboard/transactions', 'DashboardTransactionController@index')->name('dashboard-transaction');
+Route::get('/dashboard/transactions/{id}', 'DashboardTransactionController@details')->name('dashboard-transaction-details');
+
+// setting
+Route::get('/dashboard/setting', 'DashboardSettingController@store')->name('dashboard-setting-store');
+Route::get('/dashboard/account', 'DashboardSettingController@account')->name('dashboard-setting-account');
+
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
